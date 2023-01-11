@@ -4,7 +4,7 @@ import {hydrateRoot} from "react-dom/client";
 
 import {autoConfigureDevtools} from "async-states-devtools"
 import "async-states-devtools/dist/style.css"
-autoConfigureDevtools({open: true});
+autoConfigureDevtools({open: false});
 
 
 function hydrate() {

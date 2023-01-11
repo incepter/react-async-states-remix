@@ -27,19 +27,17 @@ app.use(morgan("tiny"));
 
 app.all(
   "*",
-  process.env.NODE_ENV === "development"
-    ? (req, res, next) => {
-        purgeRequireCache();
+  (req, res, next) => {
+    if (process.env.NODE_ENV === "development") {
+      purgeRequireCache();
+    }
 
-        return createRequestHandler({
-          build: require(BUILD_DIR),
-          mode: process.env.NODE_ENV,
-        })(req, res, next);
-      }
-    : createRequestHandler({
-        build: require(BUILD_DIR),
-        mode: process.env.NODE_ENV,
-      })
+    console.log('intercepting request', Object.keys(req));
+    return createRequestHandler({
+      build: require(BUILD_DIR),
+      mode: process.env.NODE_ENV,
+    })(req, res, next);
+  }
 );
 const port = process.env.PORT || 3000;
 
